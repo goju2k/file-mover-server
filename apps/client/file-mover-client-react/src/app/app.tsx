@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import NxWelcome from './nx-welcome';
+import FileUpload from './pages/file-upload/FileUpload';
 
 const StyledApp = styled.div`
   // Your style here
@@ -8,7 +8,8 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <NxWelcome title="file-mover-client-react" />
+      <h1>File Upload</h1>
+      <FileUpload />
     </StyledApp>
   );
 }
