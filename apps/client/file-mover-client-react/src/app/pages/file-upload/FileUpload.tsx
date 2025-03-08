@@ -33,6 +33,7 @@ const FileUpload = () => {
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("username", 'goju');
 
     try {
         const response = await axios.post("http://localhost:5000/upload", formData, {

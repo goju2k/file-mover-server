@@ -1,9 +1,10 @@
 import { Request } from "express";
+import { MoveConsumer } from "./worker/move-consumer";
 
-const express = require('express');
-const multer = require('multer');
-const cors = require('cors');
-const path = require('path');
+import express from 'express';
+import multer from 'multer';
+import cors from 'cors';
+import path from 'path';
 
 const app = express();
 const port = 5000;
@@ -11,21 +12,30 @@ const port = 5000;
 app.use(cors());
 app.use(express.json());
 
+const consumer = new MoveConsumer();
+
 // Configure multer for file storage
 const storage = multer.diskStorage({
     destination: 'uploads/',
-    filename: (_req:Request, file: { originalname: any; }, cb: (arg0: null, arg1: any) => void) => {
+    filename: (_req:Request, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
     }
 });
 const upload = multer({ storage });
 
 // Upload route
-app.post('/upload', upload.single('file'), (req: { file: { filename: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): any; new(): any; }; }; json: (arg0: { message: string; filename: any; }) => void; }) => {
+app.post('/upload', upload.single('file'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
     }
-    res.json({ message: 'File uploaded successfully', filename: req.file.filename });
+
+    const userName = req.body?.username || 'noname'
+    consumer.addItem({
+      fileName: req.file.filename,
+      userName
+    });
+
+    return res.json({ message: 'File uploaded successfully', filename: req.file.filename });
 });
 
 // Start server
