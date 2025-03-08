@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./apps/client/file-mover-client-react"
+    },
+    {
+      "path": "./apps/client/file-mover-client"
     }
   ]
 }

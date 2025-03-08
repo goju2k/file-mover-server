@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
-    "web": "nx serve file-mover-client-react"
+    "postinstall": "electron-builder install-app-deps && electron-builder install-app-deps",
+    "web": "nx serve file-mover-client-react",
+    "client": "nx serve file-mover-client"
   },
   "private": true,
   "devDependencies": {

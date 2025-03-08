@@ -1,0 +1,63 @@
+{
+  "name": "file-mover-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client/file-mover-client/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx-electron:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/client/file-mover-client",
+        "main": "apps/client/file-mover-client/src/main.ts",
+        "tsConfig": "apps/client/file-mover-client/tsconfig.app.json",
+        "assets": [
+          "apps/client/file-mover-client/src/assets"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/client/file-mover-client/src/environments/environment.ts",
+              "with": "apps/client/file-mover-client/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx-electron:execute",
+      "options": {
+        "buildTarget": "file-mover-client:build"
+      }
+    },
+    "package": {
+      "executor": "nx-electron:package",
+      "options": {
+        "name": "file-mover-client",
+        "frontendProject": "file-mover-client-react",
+        "sourcePath": "dist/apps",
+        "outputPath": "dist/packages",
+        "prepackageOnly": true
+      }
+    },
+    "make": {
+      "executor": "nx-electron:make",
+      "options": {
+        "name": "file-mover-client",
+        "frontendProject": "file-mover-client-react",
+        "sourcePath": "dist/apps",
+        "outputPath": "dist/executables"
+      }
+    },
+    "lint": {
+      "command": "eslint apps/client/file-mover-client/**/*.ts"
+    }
+  }
+}
