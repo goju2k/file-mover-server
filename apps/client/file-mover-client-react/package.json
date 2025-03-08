@@ -1,0 +1,8 @@
+{
+  "name": "@file-mover-server2/file-mover-client-react",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "file-mover-client-react"
+  }
+}
