@@ -1,0 +1,29 @@
+{
+  "name": "@file-mover-server2/file-mover-server",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "file-mover-server",
+    "targets": {
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "file-mover-server:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "file-mover-server:build:development"
+          },
+          "production": {
+            "buildTarget": "file-mover-server:build:production"
+          }
+        }
+      }
+    }
+  }
+}

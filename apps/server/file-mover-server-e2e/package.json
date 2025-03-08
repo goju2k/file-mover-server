@@ -1,0 +1,26 @@
+{
+  "name": "@file-mover-server2/file-mover-server-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "file-mover-server-e2e",
+    "implicitDependencies": [
+      "file-mover-server"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/server/file-mover-server-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "file-mover-server:build"
+        ]
+      }
+    }
+  }
+}

@@ -8,6 +8,12 @@
     },
     {
       "path": "./apps/client/file-mover-client"
+    },
+    {
+      "path": "./apps/server/file-mover-server-e2e"
+    },
+    {
+      "path": "./apps/server/file-mover-server"
     }
   ]
 }
