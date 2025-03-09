@@ -74,8 +74,10 @@
     "react-dom": "18.3.1",
     "react-dropzone": "^14.3.8",
     "react-is": "19.0.0",
+    "react-router-dom": "^7.3.0",
     "rxjs": "^7.8.2",
     "styled-components": "5.3.6",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "ws": "^8.18.1"
   }
 }

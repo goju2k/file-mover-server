@@ -53,7 +53,8 @@ const Header = styled.div({
 
 const Content = styled.div({
   width: '100%',
-  minHeight: '400px',
+  height: '400px',
+  overflow: 'auto',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
