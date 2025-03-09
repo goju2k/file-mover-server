@@ -5,10 +5,36 @@
     <title>FileMoverClientReact</title>
     <base href="/" />
 
+    <style>
+      html {
+        -webkit-text-size-adjust: 100%;
+        font-family: Pretendard Variable, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+          Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        line-height: 1.5;
+        tab-size: 4;
+        scroll-behavior: smooth;
+      }
+      h1,
+      h2,
+      p,
+      pre {
+        margin: 0;
+      }
+      *,
+      ::before,
+      ::after {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: currentColor;
+      }
+    </style>
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   </head>
-  <body>
+  <body style="overflow: hidden; margin: 0;">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

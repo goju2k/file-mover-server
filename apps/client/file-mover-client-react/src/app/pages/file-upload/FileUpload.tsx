@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import axios from "axios";
+import { BaseLayout } from "./components/BaseLayout";
 
 interface ProgressInfo {
   progress: number;
@@ -62,27 +63,29 @@ const FileUpload = () => {
     };
 
     return (
-      <div>
-          <input type="file" onChange={handleFileChange} />
-          <button onClick={handleUpload}>Upload</button>
-          <div style={{ width: "100%", backgroundColor: "#ccc", marginTop: "10px" }}>
-              <div
-                  style={{
-                      width: `${progressInfo.progress}%`,
-                      height: "10px",
-                      backgroundColor: "green",
-                  }}
-              />
-          </div>
-          {
-          progressInfo.progress > 0 && 
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <div>{`${progressInfo.current.toLocaleString()} / ${progressInfo.total.toLocaleString()}`}</div>
-            <div>{`${progressInfo.progress}%`}</div>
-          </div>
-          }
-          {message && <p>{message}</p>}
-      </div>
+      <BaseLayout title="FE File Mover">
+        <div style={{width: '100%'}}>
+            <input type="file" onChange={handleFileChange} />
+            <button onClick={handleUpload}>Upload</button>
+            <div style={{ width: "100%", backgroundColor: "#ccc", marginTop: "10px" }}>
+                <div
+                    style={{
+                        width: `${progressInfo.progress}%`,
+                        height: "10px",
+                        backgroundColor: "green",
+                    }}
+                />
+            </div>
+            {
+            progressInfo.progress > 0 && 
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <div>{`${progressInfo.current.toLocaleString()} / ${progressInfo.total.toLocaleString()}`}</div>
+              <div>{`${progressInfo.progress}%`}</div>
+            </div>
+            }
+            {message && <p>{message}</p>}
+        </div>
+      </BaseLayout>
   );
 };
 
