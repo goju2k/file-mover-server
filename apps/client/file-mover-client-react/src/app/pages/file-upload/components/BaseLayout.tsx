@@ -22,6 +22,8 @@ const Page = styled.div({
   justifyContent: 'center',
   alignItems: 'flex-start',
   background: '#d9d9d9',
+  color: '#444',
+  fontSize: '14px',
 });
 
 const Container = styled.div({
@@ -45,6 +47,7 @@ const Header = styled.div({
   flex: '0 0 60px',
   padding: '15px',
   color: 'white',
+  fontSize: '18px',
   fontWeight: 600,
 });
 
