@@ -1,8 +1,9 @@
-import { BrowserWindow, shell, screen } from 'electron';
+import { BrowserWindow, shell, Notification, screen } from 'electron';
 import { rendererAppName, rendererAppPort } from './constants';
 import { environment } from '../environments/environment';
 import { join } from 'path';
 import { format } from 'url';
+import WebSocket from "ws";
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -74,6 +75,7 @@ export default class App {
       show: false,
       icon: 'icon.ico',
       webPreferences: {
+        nodeIntegration: false,
         contextIsolation: true,
         backgroundThrottling: false,
         preload: join(__dirname, 'main.preload.js'),
@@ -105,7 +107,7 @@ export default class App {
   private static loadMainWindow() {
     // load the index.html of the app.
     if (!App.application.isPackaged) {
-      App.mainWindow.loadURL(`http://localhost:${rendererAppPort}`);
+      App.mainWindow.loadURL(`http://localhost:${rendererAppPort}/upload/list`);
     } else {
       App.mainWindow.loadURL(
         format({
@@ -115,6 +117,47 @@ export default class App {
         })
       );
     }
+
+    // App.mainWindow.webContents.openDevTools();
+
+    let socket:WebSocket;
+    let reconnectInterval = 1000; // Start with 1 second delay
+
+    // WebSocket to listen for file uploads
+    const connectWebSocket = () => {
+      console.log("Connecting to WebSocket...");
+  
+      socket = new WebSocket("ws://localhost:5001");
+  
+      socket.on("open", () => {
+          console.log("Connected to WebSocket server!");
+          reconnectInterval = 1000; // Reset backoff timer after successful connection
+      });
+  
+      socket.on("message", (data) => {
+          const uploadedFile = JSON.parse(String(data));
+  
+         // Trigger OS Notification
+        new Notification({
+          title: "File Move Requested",
+          body: `File ${uploadedFile.filename} has been uploaded by ${uploadedFile.username}.`,
+        }).show();
+      });
+  
+      socket.on("close", () => {
+          console.log("WebSocket disconnected! Retrying in", reconnectInterval / 1000, "seconds...");
+          setTimeout(connectWebSocket, reconnectInterval);
+          reconnectInterval = Math.min(reconnectInterval * 2, 5000); // Exponential backoff, max 5s
+      });
+  
+      socket.on("error", (err) => {
+          console.error("WebSocket error:", err.message);
+          socket.close(); // Ensure reconnection on error
+      });
+    };
+
+    connectWebSocket();
+
   }
 
   static main(app: Electron.App, browserWindow: typeof BrowserWindow) {

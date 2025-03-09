@@ -58,7 +58,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
         message: "File Move Request",
         filename: item.fileName,
         timestamp: Date.now(),
-        usename: item.userName,
+        username: item.userName,
         seq: item.seq,
     };
       broadcast(uploadedFile);
